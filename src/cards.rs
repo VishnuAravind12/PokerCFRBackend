@@ -1,6 +1,9 @@
 // src/cards.rs
 
 use serde::{Deserialize, Serialize};
+use std::fmt;
+use rand::seq::SliceRandom;
+use rand::thread_rng;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub enum Suit {
@@ -31,4 +34,74 @@ pub enum Rank {
 pub struct Card {
     pub suit: Suit,
     pub rank: Rank,
+}
+
+// Implement Display for Card
+impl fmt::Display for Card {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        let rank = match self.rank {
+            Rank::Two => "2",
+            Rank::Three => "3",
+            Rank::Four => "4",
+            Rank::Five => "5",
+            Rank::Six => "6",
+            Rank::Seven => "7",
+            Rank::Eight => "8",
+            Rank::Nine => "9",
+            Rank::Ten => "10",
+            Rank::Jack => "J",
+            Rank::Queen => "Q",
+            Rank::King => "K",
+            Rank::Ace => "A",
+        };
+
+        let suit = match self.suit {
+            Suit::Hearts => "♥",
+            Suit::Diamonds => "♦",
+            Suit::Clubs => "♣",
+            Suit::Spades => "♠",
+        };
+
+        write!(f, "{}{}", rank, suit)
+    }
+}
+
+// Deck implementation
+pub struct Deck {
+    pub cards: Vec<Card>,
+}
+
+impl Deck {
+    pub fn new() -> Self {
+        let mut cards = Vec::with_capacity(52);
+        for &suit in &[Suit::Hearts, Suit::Diamonds, Suit::Clubs, Suit::Spades] {
+            for &rank in &[
+                Rank::Two,
+                Rank::Three,
+                Rank::Four,
+                Rank::Five,
+                Rank::Six,
+                Rank::Seven,
+                Rank::Eight,
+                Rank::Nine,
+                Rank::Ten,
+                Rank::Jack,
+                Rank::Queen,
+                Rank::King,
+                Rank::Ace,
+            ] {
+                cards.push(Card { suit, rank });
+            }
+        }
+        Deck { cards }
+    }
+
+    pub fn shuffle(&mut self) {
+        let mut rng = thread_rng();
+        self.cards.shuffle(&mut rng);
+    }
+
+    pub fn deal(&mut self) -> Option<Card> {
+        self.cards.pop()
+    }
 }
