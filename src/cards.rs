@@ -5,7 +5,7 @@ use std::fmt;
 use rand::seq::SliceRandom;
 use rand::thread_rng;
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Hash, Serialize, Deserialize)]
 pub enum Suit {
     Hearts,
     Diamonds,
@@ -13,7 +13,7 @@ pub enum Suit {
     Spades,
 }
 
-#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Serialize, Deserialize)]
+#[derive(Debug, Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Serialize, Deserialize)]
 pub enum Rank {
     Two = 2,
     Three,
