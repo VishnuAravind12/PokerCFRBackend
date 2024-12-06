@@ -1,5 +1,3 @@
-// src/cards.rs
-
 use serde::{Deserialize, Serialize};
 use std::fmt;
 use rand::seq::SliceRandom;
@@ -36,10 +34,9 @@ pub struct Card {
     pub rank: Rank,
 }
 
-// Implement Display for Card
 impl fmt::Display for Card {
     fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-        let rank = match self.rank {
+        let rank_str = match self.rank {
             Rank::Two => "2",
             Rank::Three => "3",
             Rank::Four => "4",
@@ -48,25 +45,24 @@ impl fmt::Display for Card {
             Rank::Seven => "7",
             Rank::Eight => "8",
             Rank::Nine => "9",
-            Rank::Ten => "10",
+            Rank::Ten => "T",
             Rank::Jack => "J",
             Rank::Queen => "Q",
             Rank::King => "K",
             Rank::Ace => "A",
         };
 
-        let suit = match self.suit {
+        let suit_str = match self.suit {
             Suit::Hearts => "♥",
             Suit::Diamonds => "♦",
             Suit::Clubs => "♣",
             Suit::Spades => "♠",
         };
 
-        write!(f, "{}{}", rank, suit)
+        write!(f, "{}{}", rank_str, suit_str)
     }
 }
 
-// Deck implementation
 pub struct Deck {
     pub cards: Vec<Card>,
 }
