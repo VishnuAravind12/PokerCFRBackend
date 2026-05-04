@@ -12,7 +12,7 @@ pub trait GameIO {
     );
 }
 
-#[derive(Debug)]
+#[derive(Debug, Clone, Copy)]
 pub enum GameAction {
     Fold,
     Check,
