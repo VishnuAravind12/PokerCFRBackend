@@ -1,1 +1,3 @@
-/target
+# CMake build directories
+kuhn_cfr/build/
+river_cfr/build/
